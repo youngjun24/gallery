@@ -287,6 +287,16 @@ window.addEventListener('mousedown', onDocumentMouseDown, false);
 
          // 초기 오버레이를 닫는 기능
          const overlay = document.getElementById('overlay');
+         const isFirstVisit = localStorage.getItem('visited'); // 방문 여부 확인
+
+          if (isFirstVisit) {
+               // 이미 방문한 경우 오버레이 숨김
+                  overlay.style.display = "none";
+            } else {
+               // 첫 방문인 경우 localStorage에 기록
+              localStorage.setItem('visited', 'true');
+    }
+
 
          const closeOverlay = (event) => {
           if (event.key === "Enter") { 
