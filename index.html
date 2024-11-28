@@ -109,6 +109,31 @@
         camera.position.set(10, 20, 220);
         camera.lookAt(0, 1, 0);
 
+        // 저장된 카메라 상태 복원
+const savedCameraState = sessionStorage.getItem("cameraState");
+if (savedCameraState) {
+    const cameraState = JSON.parse(savedCameraState);
+    camera.position.set(cameraState.position.x, cameraState.position.y, cameraState.position.z);
+    camera.rotation.set(cameraState.rotation.x, cameraState.rotation.y, cameraState.rotation.z);
+}
+
+// 페이지를 떠날 때 카메라 상태 저장
+window.addEventListener("beforeunload", () => {
+    const cameraState = {
+        position: {
+            x: camera.position.x,
+            y: camera.position.y,
+            z: camera.position.z
+        },
+        rotation: {
+            x: camera.rotation.x,
+            y: camera.rotation.y,
+            z: camera.rotation.z
+        }
+    };
+    sessionStorage.setItem("cameraState", JSON.stringify(cameraState)); // 상태 저장
+});
+
         // 조명 추가
         const ambientLight = new THREE.AmbientLight(0xffffff, 3);
         scene.add(ambientLight);
