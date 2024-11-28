@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>패턴포스터</title>
+<style>
+    /* 전체 페이지 설정 */
+    body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #121212; /* 종이 색상 배경 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column; /* 수직 방향 정렬 */
+        text-align: center; /* 텍스트 중앙 정렬 */
+        color: rgb(255, 255, 255);
+    }
+
+    .content {
+        margin-top: 20px; /* 이미지와 텍스트 간의 간격 */
+    }
+
+    .back {
+        position: absolute;
+        font-size: 1em;
+        top: 2%;
+        left: 2%;
+        cursor: pointer;
+        color: rgb(255, 255, 255);
+    }
+
+    img {
+        max-width: 30%;
+        top: 2%;
+        height: auto; /* 비율 유지 */
+    }
+</style>
+</head>
+<body>
+    <div>
+        <img src="pattern2.jpg" art="pattern2">
+   
+
+    </div>
+    <div class="sketchbook">
+        <div class="content">
+            <h1>고양이 박스</h1>
+            <p>시각디자인2 수업 중 패턴포스터 연작</p>
+        </div>
+
+        <!-- 메인 페이지로 돌아가는 버튼 -->
+        <div class="back" onclick="goBack()">
+            <h1>⬅︎</h1>
+        </div>
+    </div>
+
+    <script>
+        // 뒤로가기 함수 정의
+        function goBack() {
+            window.location.href = 'index.html'; // 메인 페이지로 이동
+        }
+    </script>
+</body>
+</html>
