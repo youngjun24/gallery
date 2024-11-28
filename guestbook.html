@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>방명록</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            font-size: 14px;
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        textarea {
+            width: 96%;
+            height: 100px;
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #000000;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #666;
+        }
+        .messages {
+            margin-top: 20px;
+        }
+        .message {
+            padding: 10px;
+            background: #f1f1f1;
+            border: 1px solid #ddd;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .back {
+        position: absolute;
+        font-size: 1em;
+        top: 2%;
+        left: 2%;
+        cursor: pointer;
+        color: rgb(0, 0, 0);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>전시회 방명록</h1>
+        <textarea id="guestbook-message" placeholder="마음대로 방명록과 감상평을 적어주세요!"></textarea>
+        <button id="save-message">저장</button>
+        <div class="messages" id="messages"></div>
+    </div>
+
+    <!-- 메인 페이지로 돌아가는 버튼 -->
+    <div class="back" onclick="goBack()">
+        <h1>⬅︎</h1>
+    </div>
+
+    <script>
+        // 로컬 스토리지에서 저장된 메시지 불러오기
+        const loadMessages = () => {
+            const messages = JSON.parse(localStorage.getItem('guestbookMessages')) || [];
+            const messagesContainer = document.getElementById('messages');
+            messagesContainer.innerHTML = ''; // 기존 메시지 제거
+
+            messages.forEach((message) => {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message');
+                messageDiv.textContent = message;
+                messagesContainer.appendChild(messageDiv);
+            });
+        };
+
+        // 메시지 저장
+        const saveMessage = () => {
+            const input = document.getElementById('guestbook-message');
+            const message = input.value.trim();
+
+            if (message) {
+                const messages = JSON.parse(localStorage.getItem('guestbookMessages')) || [];
+                messages.push(message); // 새 메시지 추가
+                localStorage.setItem('guestbookMessages', JSON.stringify(messages)); // 로컬 스토리지에 저장
+                input.value = ''; // 입력창 초기화
+                loadMessages(); // 메시지 목록 다시 렌더링
+            } else {
+                alert('메시지를 입력하세요.');
+            }
+        };
+
+        // 이벤트 리스너 설정
+        document.getElementById('save-message').addEventListener('click', saveMessage);
+
+        // 페이지 로드 시 메시지 렌더링
+        loadMessages();
+
+        function goBack() {
+            window.location.href = 'index.html'; // 메인 페이지로 이동
+        }
+    </script>
+</body>
+</html>
